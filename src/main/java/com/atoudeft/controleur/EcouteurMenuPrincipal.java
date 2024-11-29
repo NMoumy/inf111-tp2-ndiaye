@@ -53,11 +53,27 @@ public class EcouteurMenuPrincipal implements ActionListener {
                     break;
                 case "CONFIGURER":
                     //TODO : compléter (question 1.3)
-                    PanneauConfigServeur panneauConfigServeur = new PanneauConfigServeur("", 0);
-                    JOptionPane.showConfirmDialog(fenetre, panneauConfigServeur, "Configuration serveur", JOptionPane.OK_CANCEL_OPTION);
+                    boolean close = false;
+                    while (!close) {
+                        close = true;
+                        PanneauConfigServeur panneauConfigServeur = new PanneauConfigServeur("", 0);
+                        res = JOptionPane.showConfirmDialog(fenetre, panneauConfigServeur, "Configuration serveur", JOptionPane.OK_CANCEL_OPTION);
 
-                    //fenetre.setContentPane(panneauConfigServeur);
-                    //fenetre.setVisible(true);
+                        if (res == JOptionPane.OK_OPTION){
+                            String addr = panneauConfigServeur.getAdresseServeur();
+                            String port = panneauConfigServeur.getPortServeur();
+                            int portInt = 0;
+                            try {
+                                portInt = Integer.parseInt(port);
+                            } catch (NumberFormatException e) {
+                                close = false;
+                            }
+                            if (close) {
+                                client.setAdrServeur(addr);
+                                client.setPortServeur(portInt);
+                            }
+                        }
+                    }
                     break;
                 case "QUITTER":
                     if (client.isConnecte()) {
