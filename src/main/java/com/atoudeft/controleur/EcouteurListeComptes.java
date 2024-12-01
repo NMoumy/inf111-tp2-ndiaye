@@ -21,6 +21,15 @@ public class EcouteurListeComptes extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent evt) {
-        //à compléter
+        //le double click
+        if (evt.getClickCount() == 2) {
+            //recuperer la liste de tous les comptes
+            JList<?> liste = (JList<?>) evt.getSource();
+            Object selectedValue = liste.getSelectedValue();
+            //Si c'est pas null, tu envoies la commande SELECT au serveur
+            if (selectedValue != null) {
+                client.envoyer("SELECT " + selectedValue.toString());
+            }
+    }
     }
 }

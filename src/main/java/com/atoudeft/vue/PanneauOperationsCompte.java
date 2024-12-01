@@ -42,4 +42,10 @@ public class PanneauOperationsCompte extends JPanel {
         bFacture.addActionListener(ecouteur);
         bHistorique.addActionListener(ecouteur);
     }
+
+
+    //Compte selectionne "SELECT"
+    public void informationsDuCompte(String numeroCompte, String typeCompte, String solde) {
+        lblSolde.setText("Numero du Compte : " + numeroCompte + " (" + typeCompte + ") - Solde : " + solde + " $");
+    }
 }
