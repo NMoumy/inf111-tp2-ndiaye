@@ -17,7 +17,7 @@ public class PanneauOperationsCompte extends JPanel {
         bHistorique = new JButton("Historique du compte");
         lblSolde = new JLabel("Solde : ");
 
-        bEpargne.setActionCommand("DEPOT");
+        bEpargne.setActionCommand("EPARGNE");
         bDepot.setActionCommand("DEPOT");
         bRetrait.setActionCommand("RETRAIT");
         bTransfert.setActionCommand("TRANSFER");
@@ -41,5 +41,11 @@ public class PanneauOperationsCompte extends JPanel {
         bTransfert.addActionListener(ecouteur);
         bFacture.addActionListener(ecouteur);
         bHistorique.addActionListener(ecouteur);
+    }
+
+
+    //Compte selectionne "SELECT"
+    public void informationsDuCompte(String numeroCompte, String typeCompte, String solde) {
+        lblSolde.setText("Numero du Compte : " + numeroCompte + " (" + typeCompte + ") - Solde : " + solde + " $");
     }
 }
