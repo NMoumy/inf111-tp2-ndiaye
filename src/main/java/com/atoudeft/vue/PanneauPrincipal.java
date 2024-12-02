@@ -82,6 +82,13 @@ public class PanneauPrincipal  extends JPanel {
         panneauCompteClient.setVisible(false);
         this.numerosComptes.clear();
     }
+
+    //Compte selectionne "SELECT"
+    public void compteSelectionne(String numeroCompte, String typeCompte, String solde) {
+        panneauOperationsCompte.informationsDuCompte(numeroCompte, typeCompte, solde);
+    }
+
+
     public void montrerPanneauCompteClient() {
         panneauCompteClient.setVisible(true);
     }

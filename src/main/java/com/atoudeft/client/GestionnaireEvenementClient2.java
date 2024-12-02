@@ -90,10 +90,40 @@ public class GestionnaireEvenementClient2 implements GestionnaireEvenement {
                         panneauPrincipal.ajouterCompte(arg.substring(arg.indexOf("OK")+2).trim());
                     }
                     break;
-                case "SELECT" :
+
+
+
+                case "SELECT":
                     arg = evenement.getArgument();
-                    JOptionPane.showMessageDialog(panneauPrincipal,"SELECT "+arg);
+                    if (arg.trim().startsWith("NO")) {
+                        if (panneauPrincipal != null) {
+                            JOptionPane.showMessageDialog(panneauPrincipal, "La sélection du compte a échoué.");
+                        } else {
+                            System.err.println("Erreur : panneauPrincipal est null.");
+                        }
+                    } else {
+                        try {
+                            String[] parties = arg.split("\\|");
+                            String numeroCompte = parties[1];
+                            String typeCompte = parties[2];
+                            String solde = parties[3];
+
+                            if (panneauPrincipal != null) {
+                                panneauPrincipal.compteSelectionne(numeroCompte, typeCompte, solde);
+                            } else {
+                                System.err.println("Erreur : panneauPrincipal est null.");
+                            }
+                        } catch (Exception e) {
+                            if (panneauPrincipal != null) {
+                                JOptionPane.showMessageDialog(panneauPrincipal, "Erreur lors du traitement des données de la réponse du serveur.");
+                            } else {
+                                System.err.println("Erreur : panneauPrincipal est null et une exception a été levée.");
+                            }
+                        }
+                    }
                     break;
+
+
 
                 /******************* OPÉRATIONS BANCAIRES *******************/
                 case "DEPOT" :
