@@ -17,13 +17,30 @@ public class EcouteurOperationsCompte implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //à compléter :
         Object source = e.getSource();
-        String action;
+        String action = e.getActionCommand();
+
 
         if (source instanceof JButton) {
             action = ((JButton)source).getActionCommand();
             switch (action) {
                 case "EPARGNE":
-                    client.envoyer("EPARGNE");
+                    //client.envoyer("EPARGNE");
+                    break;
+                case "DEPOT":
+                    //afficherPanneau("DEPOT");
+                    //client.envoyer("DEPOT");
+                    break;
+                case "RETRAIT":
+                    //afficherPanneau("RETRAIT");
+                    //client.envoyer("RETRAIT");
+                    break;
+                case "TRANSFERT":
+                    //afficherPanneau("TRANSFERT");
+                    //client.envoyer("TRANSFERT");
+                    break;
+                case "FACTURE":
+                    //afficherPanneau("FACTURE");
+                    //client.envoyer("FACTURE");
                     break;
             }
         }
