@@ -1,6 +1,7 @@
 package com.atoudeft.controleur;
 
 import com.atoudeft.client.Client;
+import com.atoudeft.vue.PanneauOperationsCompte;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,12 +20,14 @@ public class EcouteurOperationsCompte implements ActionListener {
         Object source = e.getSource();
         String action = e.getActionCommand();
 
+         PanneauOperationsCompte.afficherPanneau(action);
 
         if (source instanceof JButton) {
             action = ((JButton)source).getActionCommand();
             switch (action) {
+
                 case "EPARGNE":
-                    //client.envoyer("EPARGNE");
+                    client.envoyer("EPARGNE");
                     break;
                 case "DEPOT":
                     //afficherPanneau("DEPOT");

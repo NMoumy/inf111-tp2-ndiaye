@@ -36,11 +36,8 @@ public class PanneauPrincipal  extends JPanel {
         panneauConnexion.setEcouteur(new EcouteurConnexion(client,panneauConnexion));
 
         panneauOperationsCompte = new PanneauOperationsCompte();
-        panneauOperationsCompte.setEcouteur(e -> {
-            String action = e.getActionCommand();
-            panneauOperationsCompte.afficherPanneau(action);
-        });
-        
+        panneauOperationsCompte.setEcouteur(new EcouteurOperationsCompte(client));
+
         panneauCompteClient = new JPanel();
 
         panneauCompteClient.setLayout(new BorderLayout());
@@ -55,7 +52,7 @@ public class PanneauPrincipal  extends JPanel {
         jlNumerosComptes.setPreferredSize(new Dimension(250,500));
 
 
-        panneauCompteClient.add(panneauOperationsCompte, BorderLayout.NORTH);
+        panneauCompteClient.add(panneauOperationsCompte, BorderLayout.CENTER);
         panneauCompteClient.add(jlNumerosComptes, BorderLayout.WEST);
         //Enregistrement de l'écouteur de souris:
         jlNumerosComptes.addMouseListener(new EcouteurListeComptes(client));
@@ -64,6 +61,7 @@ public class PanneauPrincipal  extends JPanel {
 
         this.add(panneauConnexion, BorderLayout.NORTH);
         this.add(panneauCompteClient, BorderLayout.CENTER);
+
         panneauCompteClient.setVisible(false);
     }
 
@@ -90,7 +88,6 @@ public class PanneauPrincipal  extends JPanel {
     public void compteSelectionne(String numeroCompte, String typeCompte, String solde) {
         panneauOperationsCompte.informationsDuCompte(numeroCompte, typeCompte, solde);
     }
-
 
     public void montrerPanneauCompteClient() {
         panneauCompteClient.setVisible(true);

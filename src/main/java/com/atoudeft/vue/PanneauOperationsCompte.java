@@ -1,7 +1,5 @@
 package com.atoudeft.vue;
 
-import com.atoudeft.controleur.EcouteurConnexion;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -9,10 +7,13 @@ import java.awt.event.ActionListener;
 public class PanneauOperationsCompte extends JPanel {
     private JButton btnEpargne, btnDepot, btnRetrait, btnTransfert, btnFacture, btnHistorique;
     private JLabel lblSolde;
-    private JPanel panneauDuCentre, panneauBoutons;
-    private CardLayout cardLayout; //represents a snapshot of an application that uses the CardLayout class to switch between two panel
+    private JPanel panneauBoutons;
+    private static JPanel panneauComposants;
+    private static CardLayout cardLayout; // Gère les composants de telle manière qu'un seul composant soit visible à la fois
 
     public PanneauOperationsCompte() {
+        //panneauComposants = new PanneauComposantsOperations();
+
         // Creer les boutons
         btnEpargne = new JButton("Créer compte épargne");
         btnDepot = new JButton("Déposer");
@@ -30,21 +31,18 @@ public class PanneauOperationsCompte extends JPanel {
         btnFacture.setActionCommand("FACTURE");
         btnHistorique.setActionCommand("HIST");
 
-        /*
-        btnEpargne.addActionListener(this);
-        btnDepot.addActionListener(this);
-        btnRetrait.addActionListener(this);
-        btnTransfert.addActionListener(this);
-        btnFacture.addActionListener(this);
-        btnHistorique.addActionListener(this);*/
-
-        // Initialisation du layout du centre
         cardLayout = new CardLayout();
-        panneauDuCentre = new JPanel(cardLayout);
+        panneauComposants = new JPanel(cardLayout);
+
+        panneauComposants.add(PanneauDepotRetrait("Déposer"), "DEPOT");
+        panneauComposants.add(PanneauDepotRetrait("Retirer"), "RETRAIT");
+        panneauComposants.add(PanneauTransfert("transferer"), "TRANSFERT");
+        panneauComposants.add(PanneauFacture("Régeler"), "FACTURE");
 
         //à compléter :
         this.setLayout(new BorderLayout());
         panneauBoutons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panneauBoutons.setBackground(Color.BLUE);
         panneauBoutons.add(lblSolde);
         panneauBoutons.add(btnEpargne);
         panneauBoutons.add(btnDepot);
@@ -53,28 +51,13 @@ public class PanneauOperationsCompte extends JPanel {
         panneauBoutons.add(btnFacture);
         panneauBoutons.add(btnHistorique);
 
-        // Ajout des panneaux d'opérations
-        //panneauDuCentre.setUI();
-        panneauDuCentre.add(PanneauDepotRetrait("Déposer"), "DEPOT");
-        panneauDuCentre.add(PanneauDepotRetrait("Retirer"), "RETRAIT");
-        panneauDuCentre.add(PanneauTransfert(), "TRANSFERT");
-        panneauDuCentre.add(PanneauFacture(), "FACTURE");
-
         this.add(panneauBoutons, BorderLayout.NORTH);
-        this.add(panneauDuCentre, BorderLayout.CENTER);
-    }
-
-    public void setEcouteur(ActionListener ecouteur) {
-        btnEpargne.addActionListener(ecouteur);
-        btnDepot.addActionListener(ecouteur);
-        btnRetrait.addActionListener(ecouteur);
-        btnTransfert.addActionListener(ecouteur);
-        btnFacture.addActionListener(ecouteur);
-        btnHistorique.addActionListener(ecouteur);
+        this.add(panneauComposants, BorderLayout.CENTER);
     }
 
     private JPanel PanneauDepotRetrait(String operation) {
         JPanel panel = new JPanel();
+        panel.setBackground(Color.GREEN);
         JLabel lblMontant = new JLabel("Montant:");
         JTextField txtMontant = new JTextField(10);
         JButton btnConfirmer = new JButton(operation);
@@ -85,8 +68,9 @@ public class PanneauOperationsCompte extends JPanel {
         return panel;
     }
 
-    private JPanel PanneauFacture() {
+    private JPanel PanneauFacture(String operation) {
         JPanel panel = new JPanel();
+        panel.setBackground(Color.GREEN);
         JLabel lblMontant = new JLabel("Montant:");
         JTextField txtMontant = new JTextField(10);
         JLabel lblNumero = new JLabel("Numéro:");
@@ -105,8 +89,9 @@ public class PanneauOperationsCompte extends JPanel {
         return panel;
     }
 
-    private JPanel PanneauTransfert() {
+    private JPanel PanneauTransfert(String operation) {
         JPanel panel = new JPanel();
+        panel.setBackground(Color.GREEN);
         JLabel lblMontant = new JLabel("Montant:");
         JTextField txtMontant = new JTextField(10);
         JLabel lblDestinataire = new JLabel("Montant:");
@@ -121,8 +106,17 @@ public class PanneauOperationsCompte extends JPanel {
         return panel;
     }
 
-    public void afficherPanneau(String action) {
-        cardLayout.show(panneauDuCentre, action);
+    public static void afficherPanneau(String action) {
+        cardLayout.show(panneauComposants, action);
+    }
+
+    public void setEcouteur(ActionListener ecouteur) {
+        btnEpargne.addActionListener(ecouteur);
+        btnDepot.addActionListener(ecouteur);
+        btnRetrait.addActionListener(ecouteur);
+        btnTransfert.addActionListener(ecouteur);
+        btnFacture.addActionListener(ecouteur);
+        btnHistorique.addActionListener(ecouteur);
     }
 
     //Compte selectionne "SELECT"
