@@ -2,6 +2,7 @@ package com.atoudeft.controleur;
 
 import com.atoudeft.client.Client;
 import com.atoudeft.vue.PanneauOperationsCompte;
+import com.atoudeft.vue.PanneauPrincipal;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,32 +21,22 @@ public class EcouteurOperationsCompte implements ActionListener {
         Object source = e.getSource();
         String action = e.getActionCommand();
 
-         PanneauOperationsCompte.afficherPanneau(action);
+        PanneauPrincipal.afficherPanneau(action);
 
-        if (source instanceof JButton) {
+        if ("EPARGNE".equals(action)) {
+            client.envoyer("EPARGNE");
+        }
+
+        // ENLEVER SI PAS UTILISÉ !!!!!!!!!!!!!
+
+        /*if (source instanceof JButton) {
             action = ((JButton)source).getActionCommand();
             switch (action) {
-
                 case "EPARGNE":
                     client.envoyer("EPARGNE");
                     break;
-                case "DEPOT":
-                    //afficherPanneau("DEPOT");
-                    //client.envoyer("DEPOT");
-                    break;
-                case "RETRAIT":
-                    //afficherPanneau("RETRAIT");
-                    //client.envoyer("RETRAIT");
-                    break;
-                case "TRANSFERT":
-                    //afficherPanneau("TRANSFERT");
-                    //client.envoyer("TRANSFERT");
-                    break;
-                case "FACTURE":
-                    //afficherPanneau("FACTURE");
-                    //client.envoyer("FACTURE");
-                    break;
             }
-        }
+        }*/
+
     }
 }

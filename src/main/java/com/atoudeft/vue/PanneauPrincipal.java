@@ -22,7 +22,14 @@ public class PanneauPrincipal  extends JPanel {
     private Client client;
     private PanneauConnexion panneauConnexion;
     private JPanel panneauCompteClient;
+
     private PanneauOperationsCompte panneauOperationsCompte;
+
+    private static CardLayout cardLayout;
+    private static JPanel panneauComposants;
+    private PanneauDepotRetrait panneauRetrait, panneauDepot;
+    private PanneauTransfert panneauTransfert;
+    private PanneauFacture panneauFacture;
 
     private DefaultListModel<String> numerosComptes;
     private JList<String> jlNumerosComptes;
@@ -38,6 +45,19 @@ public class PanneauPrincipal  extends JPanel {
         panneauOperationsCompte = new PanneauOperationsCompte();
         panneauOperationsCompte.setEcouteur(new EcouteurOperationsCompte(client));
 
+        cardLayout = new CardLayout();
+        panneauComposants = new JPanel(cardLayout);
+
+        panneauRetrait = new PanneauDepotRetrait("Retirer", client);
+        panneauDepot = new PanneauDepotRetrait("Déposer", client);
+        panneauTransfert = new PanneauTransfert(client);
+        panneauFacture = new PanneauFacture(client);
+
+        panneauComposants.add(panneauDepot, "DEPOT");
+        panneauComposants.add(panneauRetrait, "RETRAIT");
+        panneauComposants.add(panneauTransfert, "TRANSFERT");
+        panneauComposants.add(panneauFacture, "FACTURE");
+
         panneauCompteClient = new JPanel();
 
         panneauCompteClient.setLayout(new BorderLayout());
@@ -52,8 +72,10 @@ public class PanneauPrincipal  extends JPanel {
         jlNumerosComptes.setPreferredSize(new Dimension(250,500));
 
 
-        panneauCompteClient.add(panneauOperationsCompte, BorderLayout.CENTER);
+        panneauCompteClient.add(panneauOperationsCompte, BorderLayout.NORTH);
         panneauCompteClient.add(jlNumerosComptes, BorderLayout.WEST);
+        panneauCompteClient.add(panneauComposants, BorderLayout.CENTER);
+
         //Enregistrement de l'écouteur de souris:
         jlNumerosComptes.addMouseListener(new EcouteurListeComptes(client));
 
@@ -63,6 +85,10 @@ public class PanneauPrincipal  extends JPanel {
         this.add(panneauCompteClient, BorderLayout.CENTER);
 
         panneauCompteClient.setVisible(false);
+    }
+
+    public static void afficherPanneau(String action) {
+        cardLayout.show(panneauComposants, action);
     }
 
     /**
