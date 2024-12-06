@@ -12,7 +12,7 @@ public class PanneauTransfert extends JPanel {
     JButton btnConfirmer;
 
     public PanneauTransfert(Client client) {
-        this.setBackground(Color.YELLOW);
+        //this.setBackground(Color.YELLOW);
 
         JLabel lblMontant = new JLabel("Montant :");
         JLabel lblDestinataire = new JLabel("Destinataire :");

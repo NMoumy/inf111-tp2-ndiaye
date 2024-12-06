@@ -12,7 +12,7 @@ public class PanneauFacture extends JPanel {
     JButton btnConfirmer;
 
     public PanneauFacture(Client client) {
-        this.setBackground(Color.GREEN);
+        //this.setBackground(Color.GREEN);
 
         JLabel lblMontant = new JLabel("Montant :");
         JLabel lblNumero = new JLabel("Numéro :");

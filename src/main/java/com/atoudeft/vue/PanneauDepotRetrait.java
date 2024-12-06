@@ -11,7 +11,7 @@ public class PanneauDepotRetrait extends JPanel {
     JButton btnConfirmer;
 
     public PanneauDepotRetrait(String operation, Client client) {
-        this.setBackground(Color.RED);
+        //this.setBackground(Color.RED);
 
         JLabel lblMontant = new JLabel("Montant :");
 
