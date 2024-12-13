@@ -86,49 +86,38 @@ public class GestionnaireEvenementClient2 implements GestionnaireEvenement {
                     break;
                 case "SELECT" :
                     arg = evenement.getArgument();
-                    if (arg.trim().startsWith("NO")) {
-                        if (panneauPrincipal != null) {
-                            JOptionPane.showMessageDialog(panneauPrincipal, "La sélection du compte a échoué.");
-                        } else {
-                            System.err.println("Erreur : panneauPrincipal est null.");
-                        }
-                    } else {
-                        try {
-                            String[] parties = arg.split("\\|");
-                            String numeroCompte = parties[1];
-                            String typeCompte = parties[2];
-                            String solde = parties[3];
-
-                            if (panneauPrincipal != null) {
-                                panneauPrincipal.compteSelectionne(numeroCompte, typeCompte, solde);
-                            } else {
-                                System.err.println("Erreur : panneauPrincipal est null.");
-                            }
-                        } catch (Exception e) {
-                            if (panneauPrincipal != null) {
-                                JOptionPane.showMessageDialog(panneauPrincipal, "Erreur lors du traitement des données de la réponse du serveur.");
-                            } else {
-                                System.err.println("Erreur : panneauPrincipal est null et une exception a été levée.");
-                            }
-                        }
-                    }
+                    t = arg.split(" ");
+                    JOptionPane.showMessageDialog(panneauPrincipal,"SELECT OK " + t[0]);
+                    panneauPrincipal.recupererSolde(t[1]);
                     break;
                 /******************* OPÉRATIONS BANCAIRES *******************/
                 case "DEPOT" :
                     arg = evenement.getArgument();
                     JOptionPane.showMessageDialog(panneauPrincipal,"DEPOT "+arg);
+                    if (!arg.trim().startsWith("NO")) {
+                        panneauPrincipal.recupererSolde(arg.substring(arg.indexOf("OK")+2).trim());
+                    }
                     break;
                 case "RETRAIT" :
                     arg = evenement.getArgument();
                     JOptionPane.showMessageDialog(panneauPrincipal,"RETRAIT "+arg);
+                    if (!arg.trim().startsWith("NO")) {
+                        panneauPrincipal.recupererSolde(arg.substring(arg.indexOf("OK")+2).trim());
+                    }
                     break;
                 case "FACTURE" :
                     arg = evenement.getArgument();
                     JOptionPane.showMessageDialog(panneauPrincipal,"FACTURE" + arg);
+                    if (!arg.trim().startsWith("NO")) {
+                        panneauPrincipal.recupererSolde(arg.substring(arg.indexOf("OK")+2).trim());
+                    }
                     break;
                 case "TRANSFER" :
                     arg = evenement.getArgument();
                     JOptionPane.showMessageDialog(panneauPrincipal,"TRANSFER " + arg);
+                    if (!arg.trim().startsWith("NO")) {
+                        panneauPrincipal.recupererSolde(arg.substring(arg.indexOf("OK")+2).trim());
+                    }
                     break;
                 case "HIST":
                     arg = evenement.getArgument();

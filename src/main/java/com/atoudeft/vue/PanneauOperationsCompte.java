@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class PanneauOperationsCompte extends JPanel {
+public class PanneauOperationsCompte extends JPanel  {
     private JButton btnEpargne, btnDepot, btnRetrait, btnTransfert, btnFacture, btnHistorique;
     private JLabel lblSolde;
     //private JPanel panneauBoutons;
@@ -17,7 +17,7 @@ public class PanneauOperationsCompte extends JPanel {
         btnTransfert = new JButton("Transferer");
         btnFacture = new JButton("Payer Facture");
         btnHistorique = new JButton("Historique du compte");
-        lblSolde = new JLabel("Solde : ");
+        lblSolde = new JLabel("Solde : 0$");
 
         // Initialisation des actions
         btnEpargne.setActionCommand("EPARGNE");
@@ -50,7 +50,7 @@ public class PanneauOperationsCompte extends JPanel {
     }
 
     //Compte selectionne "SELECT"
-    public void informationsDuCompte(String numeroCompte, String typeCompte, String solde) {
-        lblSolde.setText("Numero du Compte : " + numeroCompte + " (" + typeCompte + ") - Solde : " + solde + " $");
+    public void getSoldeCompteActuel(String solde) {
+        lblSolde.setText("Solde" + " : " + solde + "$");
     }
 }

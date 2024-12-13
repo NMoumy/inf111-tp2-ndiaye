@@ -91,7 +91,6 @@ public class PanneauPrincipal  extends JPanel {
 
     public static void afficherPanneau(String action) {
         cardLayout.show(panneauComposants, action);
-        //cardLayout.show(panel, "Card 1");
     }
 
     /**
@@ -113,14 +112,14 @@ public class PanneauPrincipal  extends JPanel {
         this.numerosComptes.clear();
     }
 
-    //Compte selectionne "SELECT"
-    public void compteSelectionne(String numeroCompte, String typeCompte, String solde) {
-        panneauOperationsCompte.informationsDuCompte(numeroCompte, typeCompte, solde);
+    public void recupererSolde(String solde) {
+        panneauOperationsCompte.getSoldeCompteActuel(solde);
     }
 
     public void montrerPanneauCompteClient() {
         panneauCompteClient.setVisible(true);
     }
+
     /**
      * Affiche un numéro de compte dans le JList des comptes.
      *

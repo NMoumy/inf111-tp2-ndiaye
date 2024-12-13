@@ -9,8 +9,7 @@ public class PanneauConnexion extends JPanel {
     private JButton bNouveau, bConnecter;
 
     public PanneauConnexion() {
-        JLabel lNumCompteClient = new JLabel("Numero compte-client : "),
-                lNip = new JLabel("NIP : ");
+        JLabel lNumCompteClient = new JLabel("Numero compte-client : "), lNip = new JLabel("NIP : ");
         txtNumCompteClient = new JTextField(30);
         txtNip = new JTextField(30);
 
