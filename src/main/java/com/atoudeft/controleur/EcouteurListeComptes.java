@@ -26,7 +26,7 @@ public class EcouteurListeComptes extends MouseAdapter {
             //recuperer la liste de tous les comptes
             JList<?> liste = (JList<?>) evt.getSource();
             Object selectedValue = liste.getSelectedValue();
-            //Si c'est pas null, tu envoies la commande SELECT au serveur
+
             String compteSelectione = selectedValue.toString();
             int index = compteSelectione.indexOf("[");
 

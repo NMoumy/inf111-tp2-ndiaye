@@ -161,10 +161,11 @@ public class GestionnaireEvenementServeur implements GestionnaireEvenement {
                         cnx.envoyer("EPARGNE NO");
                         break;
                     }
-                    //
+
                     banque = serveurBanque.getBanque();
                     if (banque.ajouterCompteEpargne(numCompteClient)) {
-                        cnx.envoyer("EPARGNE OK "+banque.getCompteClient(numCompteClient).getCompteEpargne().getNumero());
+                        compteBancaire = banque.getCompteClient(numCompteClient).getCompteEpargne();
+                        cnx.envoyer("EPARGNE OK" + compteBancaire.getNumero()+"[EPARGNE] "+compteBancaire.getSolde());
                     }
                     else {
                         cnx.envoyer("EPARGNE NO");
@@ -178,18 +179,20 @@ public class GestionnaireEvenementServeur implements GestionnaireEvenement {
                         break;
                     }
                     argument = evenement.getArgument(); //type de compte à sélectionner
-                    numCompte = serveurBanque.getBanque().getNumeroCompteBancaire(numCompteClient,argument);
-                    if (numCompte==null) {
+                    System.out.println("Le numero de compte " + argument);
+                    if (argument==null) {
                         cnx.envoyer("SELECT NO");
                     }
                     else  {
-                        compteBancaire = serveurBanque.getBanque().getCompteBancaireParNumero(numCompte);
-                        if (compteBancaire!=null)
-                            solde = compteBancaire.getSolde();
-                        else
-                            solde = 0;
-                        cnx.setNumeroCompteActuel(numCompte);
-                        cnx.envoyer("SELECT OK "+numCompte+" "+solde);
+                        compteBancaire = serveurBanque.getBanque().getCompteBancaireParNumero(argument);
+                        if(compteBancaire != null) {
+                            cnx.setNumeroCompteActuel(argument);
+                            cnx.envoyer("SELECT " + compteBancaire.getNumero()+ "[" + compteBancaire.getType()
+                                    + "] " +compteBancaire.getSolde());
+                        }
+                        else {
+                            cnx.envoyer("SELECT NO");
+                        }
                     }
                     break;
                 case "DEPOT": //Question 6.1 :
