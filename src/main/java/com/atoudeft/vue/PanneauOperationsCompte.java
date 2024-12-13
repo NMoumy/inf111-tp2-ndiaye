@@ -23,7 +23,7 @@ public class PanneauOperationsCompte extends JPanel {
         btnEpargne.setActionCommand("EPARGNE");
         btnDepot.setActionCommand("DEPOT");
         btnRetrait.setActionCommand("RETRAIT");
-        btnTransfert.setActionCommand("TRANSFERT");
+        btnTransfert.setActionCommand("TRANSFER");
         btnFacture.setActionCommand("FACTURE");
         btnHistorique.setActionCommand("HIST");
 

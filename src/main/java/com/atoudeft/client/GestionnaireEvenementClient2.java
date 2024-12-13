@@ -41,12 +41,6 @@ public class GestionnaireEvenementClient2 implements GestionnaireEvenement {
                     client.deconnecter(); //On ferme la connexion
                     break;
                 /******************* CREATION et CONNEXION *******************/
-//                case "HIST": //Le serveur a renvoyé
-//                    panneauPrincipal.setVisible(true);
-//                    JOptionPane.showMessageDialog(null,"Panneau visible");
-//                    cnx.envoyer("LIST");
-//                    arg = evenement.getArgument();
-//                    break;
                 case "OK":
                     panneauPrincipal.setVisible(true);
                     fenetre = (MainFrame)panneauPrincipal.getTopLevelAncestor();
@@ -90,10 +84,7 @@ public class GestionnaireEvenementClient2 implements GestionnaireEvenement {
                         panneauPrincipal.ajouterCompte(arg.substring(arg.indexOf("OK")+2).trim());
                     }
                     break;
-
-
-
-                case "SELECT":
+                case "SELECT" :
                     arg = evenement.getArgument();
                     if (arg.trim().startsWith("NO")) {
                         if (panneauPrincipal != null) {
@@ -122,9 +113,6 @@ public class GestionnaireEvenementClient2 implements GestionnaireEvenement {
                         }
                     }
                     break;
-
-
-
                 /******************* OPÉRATIONS BANCAIRES *******************/
                 case "DEPOT" :
                     arg = evenement.getArgument();
@@ -141,6 +129,14 @@ public class GestionnaireEvenementClient2 implements GestionnaireEvenement {
                 case "TRANSFER" :
                     arg = evenement.getArgument();
                     JOptionPane.showMessageDialog(panneauPrincipal,"TRANSFER " + arg);
+                    break;
+                case "HIST":
+                    arg = evenement.getArgument();
+                    if (arg != null) {
+                        panneauPrincipal.ajouterMessageHistorique(arg);
+                    } else {
+                        JOptionPane.showMessageDialog(panneauPrincipal, "Aucun historique disponible pour ce compte.");
+                    }
                     break;
                 /******************* TRAITEMENT PAR DÉFAUT *******************/
                 default:

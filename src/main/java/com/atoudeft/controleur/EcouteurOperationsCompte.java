@@ -26,17 +26,9 @@ public class EcouteurOperationsCompte implements ActionListener {
         if ("EPARGNE".equals(action)) {
             client.envoyer("EPARGNE");
         }
-
-        // ENLEVER SI PAS UTILISÉ !!!!!!!!!!!!!
-
-        /*if (source instanceof JButton) {
-            action = ((JButton)source).getActionCommand();
-            switch (action) {
-                case "EPARGNE":
-                    client.envoyer("EPARGNE");
-                    break;
-            }
-        }*/
+        if ("HIST".equals(action)) {
+            client.envoyer("HIST");
+        }
 
     }
 }
