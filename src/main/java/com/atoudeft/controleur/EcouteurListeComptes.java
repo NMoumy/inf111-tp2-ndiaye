@@ -30,6 +30,6 @@ public class EcouteurListeComptes extends MouseAdapter {
             if (selectedValue != null) {
                 client.envoyer("SELECT " + selectedValue.toString());
             }
-    }
+        }
     }
 }

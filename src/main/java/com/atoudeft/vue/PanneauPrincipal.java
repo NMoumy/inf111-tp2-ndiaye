@@ -30,6 +30,7 @@ public class PanneauPrincipal  extends JPanel {
     private PanneauDepotRetrait panneauRetrait, panneauDepot;
     private PanneauTransfert panneauTransfert;
     private PanneauFacture panneauFacture;
+    private PanneauHistorique panneauHistorique;
 
     private DefaultListModel<String> numerosComptes;
     private JList<String> jlNumerosComptes;
@@ -52,11 +53,13 @@ public class PanneauPrincipal  extends JPanel {
         panneauDepot = new PanneauDepotRetrait("Déposer", client);
         panneauTransfert = new PanneauTransfert(client);
         panneauFacture = new PanneauFacture(client);
+        panneauHistorique = new PanneauHistorique(client);
 
         panneauComposants.add(panneauDepot, "DEPOT");
         panneauComposants.add(panneauRetrait, "RETRAIT");
-        panneauComposants.add(panneauTransfert, "TRANSFERT");
+        panneauComposants.add(panneauTransfert, "TRANSFER");
         panneauComposants.add(panneauFacture, "FACTURE");
+        panneauComposants.add(panneauHistorique, "HIST");
 
         panneauCompteClient = new JPanel();
 
@@ -70,7 +73,6 @@ public class PanneauPrincipal  extends JPanel {
         jlNumerosComptes.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
         jlNumerosComptes.setBorder(BorderFactory.createTitledBorder("Comptes bancaires"));
         jlNumerosComptes.setPreferredSize(new Dimension(250,500));
-
 
         panneauCompteClient.add(panneauOperationsCompte, BorderLayout.NORTH);
         panneauCompteClient.add(jlNumerosComptes, BorderLayout.WEST);
@@ -89,6 +91,7 @@ public class PanneauPrincipal  extends JPanel {
 
     public static void afficherPanneau(String action) {
         cardLayout.show(panneauComposants, action);
+        //cardLayout.show(panel, "Card 1");
     }
 
     /**
@@ -125,5 +128,9 @@ public class PanneauPrincipal  extends JPanel {
      */
     public void ajouterCompte(String str) {
         numerosComptes.addElement(str);
+    }
+
+    public void ajouterMessageHistorique(String str) {
+        panneauHistorique.ajouterHistorique(str);
     }
 }
