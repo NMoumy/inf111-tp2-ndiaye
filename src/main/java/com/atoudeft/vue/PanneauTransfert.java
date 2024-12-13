@@ -30,7 +30,6 @@ public class PanneauTransfert extends JPanel {
 
         this.add(btnConfirmer);
 
-        btnConfirmer.addActionListener(e -> client.envoyer("TRANSFER " + txtMontant.getText() + ":" + txtDestinataire.getText()));
-
+        btnConfirmer.addActionListener(e -> client.envoyer("TRANSFER " + txtMontant.getText() + " " + txtDestinataire.getText()));
     }
 }

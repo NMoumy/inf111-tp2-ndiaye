@@ -27,8 +27,19 @@ public class EcouteurListeComptes extends MouseAdapter {
             JList<?> liste = (JList<?>) evt.getSource();
             Object selectedValue = liste.getSelectedValue();
             //Si c'est pas null, tu envoies la commande SELECT au serveur
-            if (selectedValue != null) {
-                client.envoyer("SELECT " + selectedValue.toString());
+            String compteSelectione = selectedValue.toString();
+            int index = compteSelectione.indexOf("[");
+
+            String numeroSeul;
+
+            if (index != -1) {
+                numeroSeul = compteSelectione.substring(0, index);
+            } else {
+                numeroSeul = compteSelectione;
+            }
+            System.out.println(numeroSeul);
+            if (numeroSeul != null) {
+                client.envoyer("SELECT " + numeroSeul);
             }
         }
     }

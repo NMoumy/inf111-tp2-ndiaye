@@ -35,16 +35,7 @@ public class PanneauFacture extends JPanel {
 
         this.add(btnConfirmer);
 
-        btnConfirmer.addActionListener(e -> client.envoyer("FACTURE " + txtMontant.getText()+ ":" + txtNumero.getText()+ ":" + txtDescription.getText()));
-
-        // OU
-
-        /*btnConfirmer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                client.envoyer("FACTURE " + txtMontant.getText()+ ":" + txtNumero.getText()+ ":" + txtDescription.getText());
-            }
-       });*/
+        btnConfirmer.addActionListener(e -> client.envoyer("FACTURE " + txtMontant.getText()+ " " + txtNumero.getText()+ " " + txtDescription.getText()));
     }
 
 }
