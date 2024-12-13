@@ -7,10 +7,6 @@ import com.atoudeft.controleur.EcouteurOperationsCompte;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Vector;
 
 /**
  *
@@ -18,7 +14,7 @@ import java.util.Vector;
  * @version 1.0
  * @since 2024-11-01
  */
-public class PanneauPrincipal  extends JPanel {
+public class PanneauPrincipal extends JPanel {
     private Client client;
     private PanneauConnexion panneauConnexion;
     private JPanel panneauCompteClient;
@@ -34,14 +30,13 @@ public class PanneauPrincipal  extends JPanel {
 
     private DefaultListModel<String> numerosComptes;
     private JList<String> jlNumerosComptes;
-    private JDesktopPane bureau;
-
+    private JSplitPane splitPane;
 
     public PanneauPrincipal(Client client) {
         this.client = client;
 
         panneauConnexion = new PanneauConnexion();
-        panneauConnexion.setEcouteur(new EcouteurConnexion(client,panneauConnexion));
+        panneauConnexion.setEcouteur(new EcouteurConnexion(client, panneauConnexion));
 
         panneauOperationsCompte = new PanneauOperationsCompte();
         panneauOperationsCompte.setEcouteur(new EcouteurOperationsCompte(client));
@@ -62,31 +57,38 @@ public class PanneauPrincipal  extends JPanel {
         panneauComposants.add(panneauHistorique, "HIST");
 
         panneauCompteClient = new JPanel();
-
-        panneauCompteClient.setLayout(new BorderLayout());
-        panneauCompteClient.setBackground(Color.WHITE);
-        panneauOperationsCompte.setBackground(Color.WHITE);
+        panneauCompteClient.setLayout(new BorderLayout(10, 10));
+        panneauCompteClient.setBackground(new Color(245, 245, 245));
 
         numerosComptes = new DefaultListModel<>();
-
         jlNumerosComptes = new JList<>(numerosComptes);
-        jlNumerosComptes.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+        jlNumerosComptes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jlNumerosComptes.setBorder(BorderFactory.createTitledBorder("Comptes bancaires"));
-        jlNumerosComptes.setPreferredSize(new Dimension(250,500));
+        jlNumerosComptes.setBackground(Color.WHITE);
+        jlNumerosComptes.setFixedCellHeight(30);
+        jlNumerosComptes.setFont(new Font("Arial", Font.PLAIN, 14));
+        jlNumerosComptes.setSelectionBackground(new Color(100, 149, 237)); // Highlight color
+        jlNumerosComptes.setSelectionForeground(Color.WHITE);
+
+        JScrollPane listScrollPane = new JScrollPane(jlNumerosComptes);
+        listScrollPane.setPreferredSize(new Dimension(250, 500));
+        listScrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, listScrollPane, panneauComposants);
+        splitPane.setDividerSize(8);
+        splitPane.setResizeWeight(0.3);
+        splitPane.setOneTouchExpandable(true);
 
         panneauCompteClient.add(panneauOperationsCompte, BorderLayout.NORTH);
-        panneauCompteClient.add(jlNumerosComptes, BorderLayout.WEST);
-        panneauCompteClient.add(panneauComposants, BorderLayout.CENTER);
-
-        //Enregistrement de l'écouteur de souris:
-        jlNumerosComptes.addMouseListener(new EcouteurListeComptes(client));
+        panneauCompteClient.add(splitPane, BorderLayout.CENTER);
 
         this.setLayout(new BorderLayout());
-
         this.add(panneauConnexion, BorderLayout.NORTH);
         this.add(panneauCompteClient, BorderLayout.CENTER);
 
         panneauCompteClient.setVisible(false);
+
+        jlNumerosComptes.addMouseListener(new EcouteurListeComptes(client));
     }
 
     public static void afficherPanneau(String action) {
@@ -98,15 +100,17 @@ public class PanneauPrincipal  extends JPanel {
      */
     public void vider() {
         this.numerosComptes.clear();
-        this.bureau.removeAll();
     }
+
     public void cacherPanneauConnexion() {
         panneauConnexion.effacer();
         panneauConnexion.setVisible(false);
     }
+
     public void montrerPanneauConnexion() {
         panneauConnexion.setVisible(true);
     }
+
     public void cacherPanneauCompteClient() {
         panneauCompteClient.setVisible(false);
         this.numerosComptes.clear();
